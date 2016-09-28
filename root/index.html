@@ -13,7 +13,7 @@
         <source id="theSource" src="music/Earth.mp3" type="audio/mp3">
       </audio>
 
-      <canvas id="myCanvas" width="500" height="500"></canvas>
+      <canvas id="myCanvas" width="400" height="400"></canvas>
 
       <button id="myPreviousButton">Previous</button>
       <button id="myPlayButton">Play</button>
@@ -31,10 +31,30 @@
         {
           //sky
           var gradient = context.createLinearGradient(0, 0, 0, 500);
-          gradient.addColorStop(0, 'blue');
-          gradient.addColorStop(1, 'cyan');
+          gradient.addColorStop(0, 'green');
+          gradient.addColorStop(1, 'brown');
           context.fillStyle = gradient;
           context.fillRect(0, 0, 500, 500);
+
+        }
+
+        //draw background function
+        function drawFireBackground()
+        {
+          //fire sky
+          var gradient = context.createLinearGradient(0, 0, 0, 500);
+          gradient.addColorStop(0, 'red');
+          gradient.addColorStop(1, 'black');
+          context.fillStyle = gradient;
+          context.fillRect(0, 0, 500, 500);
+        }
+
+        function drawSun()
+        {
+          context.beginPath();
+					context.arc(380,20,50,0, Math.PI * 2);
+          context.fillStyle = 'yellow';
+					context.fill();
         }
 
         //Get the button elements
@@ -73,6 +93,8 @@
               element.innerHTML = 'Pause';
               source.src = "music/Earth.mp3";
               audio.load();
+              drawBackground();
+              drawSun();
             break;
 
             case 2:
@@ -80,6 +102,8 @@
               element.innerHTML = 'Pause';
               source.src = "music/Fire.mp3";
               audio.load();
+              drawFireBackground();
+              drawSun();
             break;
 
             case 3:
@@ -145,8 +169,15 @@
           changeSong();
         };
 
-        drawBackground();
+        audio.onended = function()
+        {
+        //  changeSong();
+          var element = document.getElementById('songState');
+          element.innerHTML = 'Finish!';
+        };
 
+        drawBackground();
+        drawSun();
 
 		</script>
   </body>
