@@ -38,7 +38,7 @@
 
         }
 
-        //draw background function
+        //draw fire background function
         function drawFireBackground()
         {
           //fire sky
@@ -49,6 +49,51 @@
           context.fillRect(0, 0, 500, 500);
         }
 
+        //draw Water background function
+        function drawWaterBackground()
+        {
+          //Water sky
+          var gradient = context.createLinearGradient(0, 0, 0, 500);
+          gradient.addColorStop(0, 'blue');
+          gradient.addColorStop(1, 'cyan');
+          context.fillStyle = gradient;
+          context.fillRect(0, 0, 500, 500);
+        }
+
+        //draw Ice background function
+        function drawIceBackground()
+        {
+          //Ice sky
+          var gradient = context.createLinearGradient(0, 0, 0, 500);
+          gradient.addColorStop(0, 'cyan');
+          gradient.addColorStop(1, 'blue');
+          context.fillStyle = gradient;
+          context.fillRect(0, 0, 500, 500);
+        }
+
+        //draw Light background function
+        function drawLightBackground()
+        {
+          //Light sky
+          var gradient = context.createLinearGradient(0, 0, 0, 500);
+          gradient.addColorStop(0, 'white');
+          gradient.addColorStop(1, 'yellow');
+          context.fillStyle = gradient;
+          context.fillRect(0, 0, 500, 500);
+        }
+
+        //draw Boss background function
+        function drawBossBackground()
+        {
+          //Boss sky
+          var gradient = context.createLinearGradient(0, 0, 0, 500);
+          gradient.addColorStop(0, 'purple');
+          gradient.addColorStop(1, 'black');
+          context.fillStyle = gradient;
+          context.fillRect(0, 0, 500, 500);
+        }
+
+        //Draw the sun
         function drawSun()
         {
           context.beginPath();
@@ -69,13 +114,15 @@
         //Create song variable
         var songs = 1;
 
+        //Get the div elements and source element
+        var songElement = document.getElementById('songChoice');
+        var element = document.getElementById('songState');
+        var source = document.getElementById('theSource');
+
+
         //Switching Song function
         function changeSong()
         {
-          var songElement = document.getElementById('songChoice');
-          var element = document.getElementById('songState');
-          var source = document.getElementById('theSource');
-
           //The if statments are checking to see if the player is out of range
           if(songs == 7)
           {
@@ -111,6 +158,8 @@
               element.innerHTML = 'Pause';
               source.src = "music/Water.mp3";
               audio.load();
+              drawWaterBackground();
+              drawSun();
             break;
 
             case 4:
@@ -118,6 +167,8 @@
               element.innerHTML = 'Pause';
               source.src = "music/Ice.mp3";
               audio.load();
+              drawIceBackground();
+              drawSun();
             break;
 
             case 5:
@@ -125,6 +176,8 @@
               element.innerHTML = 'Pause';
               source.src = "music/Light.mp3";
               audio.load();
+              drawLightBackground();
+              drawSun();
             break;
 
             case 6:
@@ -132,18 +185,19 @@
               element.innerHTML = 'Pause';
               source.src = "music/Boss.mp3";
               audio.load();
+              drawBossBackground();
+              drawSun();
             break;
 
             default:
 
           }
-        }
+        } //changeSong ends
 
 				playButton.onclick = function()
 				{
 					//Play audio
 					audio.play();
-          var element = document.getElementById('songState');
           element.innerHTML = 'Playing!';
 				};
 
@@ -151,7 +205,6 @@
         {
           //Pause audio
           audio.pause();
-          var element = document.getElementById('songState');
           element.innerHTML = 'Pause';
         };
 
@@ -171,11 +224,10 @@
 
         audio.onended = function()
         {
-        //  changeSong();
-          var element = document.getElementById('songState');
           element.innerHTML = 'Finish!';
         };
 
+        //Draw the background and sun right away
         drawBackground();
         drawSun();
 
