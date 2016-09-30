@@ -1,0 +1,17 @@
+body
+{
+  background: lightblue;
+  font-family: verdana,sans-serif;
+}
+
+  h1
+  {
+    text-align: center;
+  }
+
+  #songChoice,
+  #songState
+  {
+    margin-bottom: 20px;
+    text-align: center;
+  }
