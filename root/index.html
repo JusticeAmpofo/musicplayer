@@ -3,6 +3,8 @@
     <head>
         <meta charset="utf-8">
         <title>Music Player - Justice Ampofo</title>
+
+        <link rel="stylesheet" href="css/style.css">
     </head>
 
     <body>
@@ -76,7 +78,7 @@
         {
           //Light sky
           var gradient = context.createLinearGradient(0, 0, 0, 500);
-          gradient.addColorStop(0, 'white');
+          gradient.addColorStop(0, 'lightyellow');
           gradient.addColorStop(1, 'yellow');
           context.fillStyle = gradient;
           context.fillRect(0, 0, 500, 500);
@@ -100,6 +102,17 @@
 					context.arc(380,20,50,0, Math.PI * 2);
           context.fillStyle = 'yellow';
 					context.fill();
+        }
+
+        //Draw the moving clouds
+        function drawClouds(x,y)
+        {
+          context.beginPath();
+          context.arc(x-80, y+20, 20, 0, Math.PI * 2);
+          context.arc(x-40, y+10, 30, 0, Math.PI * 2);
+          context.arc(x, y, 40, 0, Math.PI * 2);
+          context.fillStyle = 'white';
+          context.fill();
         }
 
         //Get the button elements
@@ -142,6 +155,7 @@
               audio.load();
               drawBackground();
               drawSun();
+              drawClouds(50,100);
             break;
 
             case 2:
@@ -151,6 +165,7 @@
               audio.load();
               drawFireBackground();
               drawSun();
+              drawClouds(100,100);
             break;
 
             case 3:
@@ -160,6 +175,7 @@
               audio.load();
               drawWaterBackground();
               drawSun();
+              drawClouds(200,100);
             break;
 
             case 4:
@@ -169,6 +185,7 @@
               audio.load();
               drawIceBackground();
               drawSun();
+              drawClouds(250,100);
             break;
 
             case 5:
@@ -178,6 +195,7 @@
               audio.load();
               drawLightBackground();
               drawSun();
+              drawClouds(300,100);
             break;
 
             case 6:
@@ -187,6 +205,7 @@
               audio.load();
               drawBossBackground();
               drawSun();
+              drawClouds(400,100);
             break;
 
             default:
@@ -230,6 +249,7 @@
         //Draw the background and sun right away
         drawBackground();
         drawSun();
+        drawClouds(50,100);
 
 		</script>
   </body>
