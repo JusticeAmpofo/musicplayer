@@ -4,14 +4,42 @@ body
   font-family: verdana,sans-serif;
 }
 
-  h1
+  #wrapper
   {
-    text-align: center;
+    border: 1px solid red;
+    width: 960px;
+    margin: 0 auto;
   }
 
-  #songChoice,
-  #songState
-  {
-    margin-bottom: 20px;
-    text-align: center;
-  }
+    h1
+    {
+      text-align: center;
+    }
+
+    #songChoice,
+    #songState
+    {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    #myCanvas
+    {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 20px;
+    }
+
+    #buttonControls
+    {
+      display:flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      border: 1px solid green;
+    }
+
+      button
+      {
+        margin: 0 20px;
+      }
