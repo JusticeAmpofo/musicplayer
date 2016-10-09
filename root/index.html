@@ -25,6 +25,20 @@
           <button id="myNextButton">Next</button>
         </div>
 
+        <form>
+          <ul>
+            <li>
+              <input type="checkbox" id="repeat" name="repeat">
+              <label for="repeat">Repeat</label>
+            </li>
+
+            <li>
+              <input type="checkbox" id="shuffle" name="shuffle">
+              <label for="shuffle">shuffle</label>
+            </li>
+          </ul>
+        </form>
+
         <script>
 
           //Get the canvas element
@@ -265,11 +279,27 @@
           //Play the next song
           audio.onended = function()
           {
-            element.innerHTML = 'Finish!';
-            songs ++;
-            changeSong();
-            audio.play();
-            element.innerHTML = 'Playing!';
+            var again = document.getElementById('repeat');
+            var rearrange  = document.getElementById('shuffle');
+            if(again.checked)
+            {
+              audio.play();
+            }
+            else if(rearrange.checked)
+            {
+              songs = Math.round(Math.random()*6);
+              changeSong();
+              audio.play();
+              element.innerHTML = 'Playing!';
+            }
+            else
+            {
+              songs ++;
+              changeSong();
+              audio.play();
+              element.innerHTML = 'Playing!';
+            }
+
           };
 
           //Draw the background and sun right away
