@@ -24,7 +24,7 @@
           <button id="myPauseButton">Pause</button>
           <button id="myNextButton">Next</button>
         </div>
-        
+
         <script>
 
           //Get the canvas element
@@ -234,19 +234,42 @@
           nextButton.onclick = function()
           {
             songs ++;
-            changeSong();
+            if(!audio.paused)
+            {
+              changeSong();
+              audio.play();
+              element.innerHTML = 'Playing!';
+            }
+            else
+            {
+              changeSong();
+            }
           };
 
           //Switch to the previous song
           previousButton.onclick = function()
           {
             songs --;
-            changeSong();
+            if(!audio.paused)
+            {
+              changeSong();
+              audio.play();
+              element.innerHTML = 'Playing!';
+            }
+            else
+            {
+              changeSong();
+            }
           };
 
+          //Play the next song
           audio.onended = function()
           {
             element.innerHTML = 'Finish!';
+            songs ++;
+            changeSong();
+            audio.play();
+            element.innerHTML = 'Playing!';
           };
 
           //Draw the background and sun right away
