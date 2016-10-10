@@ -3,7 +3,6 @@
     <head>
         <meta charset="utf-8">
         <title>Music Player - Justice Ampofo</title>
-
         <link rel="stylesheet" href="css/style.css">
     </head>
 
@@ -18,10 +17,12 @@
 
         <canvas id="myCanvas" width="400" height="400"></canvas>
 
+        <!-- The Progress Bar -->
         <div id="myProgress">
           <span id="myBar"></span>
         </div>
 
+        <!-- Playback controls -->
         <div id="buttonControls">
           <button id="myPreviousButton">Previous</button>
           <button id="myPlayButton">Play</button>
@@ -47,293 +48,298 @@
             </li>
           </ul>
         </form>
+      </div> <!--Closes wrapper-->
 
-        <script> ////////////////////////////////
+      <script> //Javascript
 
-          //Get the canvas element
-          var canvas = document.getElementById('myCanvas');
-          var context = canvas.getContext('2d');
+        //Get the canvas element
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
 
-          //draw earth background function
-          function drawBackground()
+        //draw earth background function
+        function drawBackground()
+        {
+          var gradient = context.createLinearGradient(0, 0, 0, 500);
+          gradient.addColorStop(0, 'green');
+          gradient.addColorStop(1, 'brown');
+          context.fillStyle = gradient;
+          context.fillRect(0, 0, 500, 500);
+
+        }
+
+        //draw fire background function
+        function drawFireBackground()
+        {
+          var gradient = context.createLinearGradient(0, 0, 0, 500);
+          gradient.addColorStop(0, 'red');
+          gradient.addColorStop(1, 'black');
+          context.fillStyle = gradient;
+          context.fillRect(0, 0, 500, 500);
+        }
+
+        //draw Water background function
+        function drawWaterBackground()
+        {
+          var gradient = context.createLinearGradient(0, 0, 0, 500);
+          gradient.addColorStop(0, 'blue');
+          gradient.addColorStop(1, 'cyan');
+          context.fillStyle = gradient;
+          context.fillRect(0, 0, 500, 500);
+        }
+
+        //draw Ice background function
+        function drawIceBackground()
+        {
+          var gradient = context.createLinearGradient(0, 0, 0, 500);
+          gradient.addColorStop(0, 'cyan');
+          gradient.addColorStop(1, 'blue');
+          context.fillStyle = gradient;
+          context.fillRect(0, 0, 500, 500);
+        }
+
+        //draw Light background function
+        function drawLightBackground()
+        {
+          var gradient = context.createLinearGradient(0, 0, 0, 500);
+          gradient.addColorStop(0, 'lightyellow');
+          gradient.addColorStop(1, 'yellow');
+          context.fillStyle = gradient;
+          context.fillRect(0, 0, 500, 500);
+        }
+
+        //draw Boss background function
+        function drawBossBackground()
+        {
+          var gradient = context.createLinearGradient(0, 0, 0, 500);
+          gradient.addColorStop(0, 'purple');
+          gradient.addColorStop(1, 'black');
+          context.fillStyle = gradient;
+          context.fillRect(0, 0, 500, 500);
+        }
+
+        //Draw the sun
+        function drawSun()
+        {
+          context.beginPath();
+					context.arc(380,20,50,0, Math.PI * 2);
+          context.fillStyle = 'yellow';
+					context.fill();
+        }
+
+        //Draw the moving clouds
+        function drawClouds(x,y)
+        {
+          context.beginPath();
+          context.arc(x-80, y+20, 20, 0, Math.PI * 2);
+          context.arc(x-40, y+10, 30, 0, Math.PI * 2);
+          context.arc(x, y, 40, 0, Math.PI * 2);
+          context.fillStyle = 'white';
+          context.fill();
+        }
+
+        //Get the button elements
+        var previousButton = document.getElementById('myPreviousButton');
+				var playButton = document.getElementById('myPlayButton');
+        var pauseButton = document.getElementById('myPauseButton');
+        var nextButton = document.getElementById('myNextButton');
+
+				//Get the audio element
+				var audio = document.getElementById('myAudio');
+
+        //Create song variable
+        var songs = 1;
+
+        //Get the div elements and source element
+        var songElement = document.getElementById('songChoice');
+        var element = document.getElementById('songState');
+        var source = document.getElementById('theSource');
+
+        //Get the progress bar element
+        var progress = document.getElementById("myBar");
+
+
+        //Switching Song function
+        function changeSong()
+        {
+          //The if statments are checking to see if the player is out of range.
+          if(songs == 7)
           {
-            var gradient = context.createLinearGradient(0, 0, 0, 500);
-            gradient.addColorStop(0, 'green');
-            gradient.addColorStop(1, 'brown');
-            context.fillStyle = gradient;
-            context.fillRect(0, 0, 500, 500);
-
+            songs = 1;
+          }
+          else if(songs == 0)
+          {
+            songs = 6;
           }
 
-          //draw fire background function
-          function drawFireBackground()
+          //Determined what song to play next and what background to use.
+          switch (songs)
           {
-            var gradient = context.createLinearGradient(0, 0, 0, 500);
-            gradient.addColorStop(0, 'red');
-            gradient.addColorStop(1, 'black');
-            context.fillStyle = gradient;
-            context.fillRect(0, 0, 500, 500);
+            case 1:
+              songElement.innerHTML = 'Song 1:Earth';
+              element.innerHTML = 'Pause';
+              source.src = "music/Earth.mp3";
+              audio.load();
+              drawBackground();
+              drawSun();
+              drawClouds(50,100);
+              progress.style.backgroundColor="green";
+            break;
+
+            case 2:
+              songElement.innerHTML = 'Song 2:Fire';
+              element.innerHTML = 'Pause';
+              source.src = "music/Fire.mp3";
+              audio.load();
+              drawFireBackground();
+              drawSun();
+              drawClouds(100,100);
+              progress.style.backgroundColor="red";
+            break;
+
+            case 3:
+              songElement.innerHTML = 'Song 3:Water';
+              element.innerHTML = 'Pause';
+              source.src = "music/Water.mp3";
+              audio.load();
+              drawWaterBackground();
+              drawSun();
+              drawClouds(200,100);
+              progress.style.backgroundColor="blue";
+            break;
+
+            case 4:
+              songElement.innerHTML = 'Song 4:Ice';
+              element.innerHTML = 'Pause';
+              source.src = "music/Ice.mp3";
+              audio.load();
+              drawIceBackground();
+              drawSun();
+              drawClouds(250,100);
+              progress.style.backgroundColor="cyan";
+            break;
+
+            case 5:
+              songElement.innerHTML = 'Song 5:Light';
+              element.innerHTML = 'Pause';
+              source.src = "music/Light.mp3";
+              audio.load();
+              drawLightBackground();
+              drawSun();
+              drawClouds(300,100);
+              progress.style.backgroundColor="yellow";
+            break;
+
+            case 6:
+              songElement.innerHTML = 'Song 6:Boss';
+              element.innerHTML = 'Pause';
+              source.src = "music/Boss.mp3";
+              audio.load();
+              drawBossBackground();
+              drawSun();
+              drawClouds(400,100);
+              progress.style.backgroundColor="purple";
+            break;
           }
+        } //changeSong function ends
 
-          //draw Water background function
-          function drawWaterBackground()
+        //Update Progress Bar function
+        function updateProgress()
+        {
+           var value = 0;
+           if (myAudio.currentTime > 0)
+           {
+              value = Math.floor((100 / myAudio.duration) * myAudio.currentTime);
+           }
+           progress.style.width = value + "%";
+        }
+
+        //Play audio
+				playButton.onclick = function()
+				{
+					audio.play();
+          element.innerHTML = 'Playing!';
+				};
+
+        //Pause audio
+        pauseButton.onclick = function()
+        {
+          audio.pause();
+          element.innerHTML = 'Pause';
+        };
+
+        //Switch to the next song
+        nextButton.onclick = function()
+        {
+          songs ++;
+          if(!audio.paused)
           {
-            var gradient = context.createLinearGradient(0, 0, 0, 500);
-            gradient.addColorStop(0, 'blue');
-            gradient.addColorStop(1, 'cyan');
-            context.fillStyle = gradient;
-            context.fillRect(0, 0, 500, 500);
-          }
-
-          //draw Ice background function
-          function drawIceBackground()
-          {
-            var gradient = context.createLinearGradient(0, 0, 0, 500);
-            gradient.addColorStop(0, 'cyan');
-            gradient.addColorStop(1, 'blue');
-            context.fillStyle = gradient;
-            context.fillRect(0, 0, 500, 500);
-          }
-
-          //draw Light background function
-          function drawLightBackground()
-          {
-            var gradient = context.createLinearGradient(0, 0, 0, 500);
-            gradient.addColorStop(0, 'lightyellow');
-            gradient.addColorStop(1, 'yellow');
-            context.fillStyle = gradient;
-            context.fillRect(0, 0, 500, 500);
-          }
-
-          //draw Boss background function
-          function drawBossBackground()
-          {
-            var gradient = context.createLinearGradient(0, 0, 0, 500);
-            gradient.addColorStop(0, 'purple');
-            gradient.addColorStop(1, 'black');
-            context.fillStyle = gradient;
-            context.fillRect(0, 0, 500, 500);
-          }
-
-          //Draw the sun
-          function drawSun()
-          {
-            context.beginPath();
-  					context.arc(380,20,50,0, Math.PI * 2);
-            context.fillStyle = 'yellow';
-  					context.fill();
-          }
-
-          //Draw the moving clouds
-          function drawClouds(x,y)
-          {
-            context.beginPath();
-            context.arc(x-80, y+20, 20, 0, Math.PI * 2);
-            context.arc(x-40, y+10, 30, 0, Math.PI * 2);
-            context.arc(x, y, 40, 0, Math.PI * 2);
-            context.fillStyle = 'white';
-            context.fill();
-          }
-
-          //Get the button elements
-          var previousButton = document.getElementById('myPreviousButton');
-  				var playButton = document.getElementById('myPlayButton');
-          var pauseButton = document.getElementById('myPauseButton');
-          var nextButton = document.getElementById('myNextButton');
-
-  				//Get the audio element
-  				var audio = document.getElementById('myAudio');
-
-          //Create song variable
-          var songs = 1;
-
-          //Get the div elements and source element
-          var songElement = document.getElementById('songChoice');
-          var element = document.getElementById('songState');
-          var source = document.getElementById('theSource');
-
-
-          //Switching Song function
-          function changeSong()
-          {
-            //The if statments are checking to see if the player is out of range.
-            if(songs == 7)
-            {
-              songs = 1;
-            }
-            else if(songs == 0)
-            {
-              songs = 6;
-            }
-
-            //Determined what song to play next and what background to use.
-            switch (songs)
-            {
-              case 1:
-                songElement.innerHTML = 'Song 1:Earth';
-                element.innerHTML = 'Pause';
-                source.src = "music/Earth.mp3";
-                audio.load();
-                drawBackground();
-                drawSun();
-                drawClouds(50,100);
-              break;
-
-              case 2:
-                songElement.innerHTML = 'Song 2:Fire';
-                element.innerHTML = 'Pause';
-                source.src = "music/Fire.mp3";
-                audio.load();
-                drawFireBackground();
-                drawSun();
-                drawClouds(100,100);
-              break;
-
-              case 3:
-                songElement.innerHTML = 'Song 3:Water';
-                element.innerHTML = 'Pause';
-                source.src = "music/Water.mp3";
-                audio.load();
-                drawWaterBackground();
-                drawSun();
-                drawClouds(200,100);
-              break;
-
-              case 4:
-                songElement.innerHTML = 'Song 4:Ice';
-                element.innerHTML = 'Pause';
-                source.src = "music/Ice.mp3";
-                audio.load();
-                drawIceBackground();
-                drawSun();
-                drawClouds(250,100);
-              break;
-
-              case 5:
-                songElement.innerHTML = 'Song 5:Light';
-                element.innerHTML = 'Pause';
-                source.src = "music/Light.mp3";
-                audio.load();
-                drawLightBackground();
-                drawSun();
-                drawClouds(300,100);
-              break;
-
-              case 6:
-                songElement.innerHTML = 'Song 6:Boss';
-                element.innerHTML = 'Pause';
-                source.src = "music/Boss.mp3";
-                audio.load();
-                drawBossBackground();
-                drawSun();
-                drawClouds(400,100);
-              break;
-
-              default:
-
-            }
-          } //changeSong ends
-
-          //Update Progress Bar function
-          function updateProgress()
-          {
-             var progress = document.getElementById("myBar");
-             var value = 0;
-             if (myAudio.currentTime > 0)
-             {
-                value = Math.floor((100 / myAudio.duration) * myAudio.currentTime);
-             }
-             progress.style.width = value + "%";
-          }
-
-  				playButton.onclick = function()
-  				{
-  					//Play audio
-  					audio.play();
+            changeSong();
+            audio.play();
             element.innerHTML = 'Playing!';
-  				};
-
-          pauseButton.onclick = function()
+          }
+          else
           {
-            //Pause audio
-            audio.pause();
-            element.innerHTML = 'Pause';
-          };
+            changeSong();
+          }
+        };
 
-          //Switch to the next song
-          nextButton.onclick = function()
+        //Switch to the previous song
+        previousButton.onclick = function()
+        {
+          songs --;
+          if(!audio.paused)
+          {
+            changeSong();
+            audio.play();
+            element.innerHTML = 'Playing!';
+          }
+          else
+          {
+            changeSong();
+          }
+        };
+
+        //Play the next song
+        audio.onended = function()
+        {
+          var again = document.getElementById('repeat');
+          var rearrange  = document.getElementById('shuffle');
+          if(again.checked)
+          {
+            audio.play();
+          }
+          else if(rearrange.checked)
+          {
+            songs = Math.round(Math.random()*6);
+            changeSong();
+            audio.play();
+            element.innerHTML = 'Playing!';
+          }
+          else
           {
             songs ++;
-            if(!audio.paused)
-            {
-              changeSong();
-              audio.play();
-              element.innerHTML = 'Playing!';
-            }
-            else
-            {
-              changeSong();
-            }
-          };
-
-          //Switch to the previous song
-          previousButton.onclick = function()
-          {
-            songs --;
-            if(!audio.paused)
-            {
-              changeSong();
-              audio.play();
-              element.innerHTML = 'Playing!';
-            }
-            else
-            {
-              changeSong();
-            }
-          };
-
-          //Play the next song
-          audio.onended = function()
-          {
-            var again = document.getElementById('repeat');
-            var rearrange  = document.getElementById('shuffle');
-            if(again.checked)
-            {
-              audio.play();
-            }
-            else if(rearrange.checked)
-            {
-              songs = Math.round(Math.random()*6);
-              changeSong();
-              audio.play();
-              element.innerHTML = 'Playing!';
-            }
-            else
-            {
-              songs ++;
-              changeSong();
-              audio.play();
-              element.innerHTML = 'Playing!';
-            }
-
-          };
-
-          //Controls volume
-          function setVolume(val)
-          {
-            myAudio.volume = val / 100;
+            changeSong();
+            audio.play();
+            element.innerHTML = 'Playing!';
           }
 
-          //Draw the background and sun right away.
-          drawBackground();
-          drawSun();
-          drawClouds(50,100);
+        };
 
-          //Runs updateProgress() when the timeupdate event happens.
-          myAudio.addEventListener("timeupdate", updateProgress, false);
+        //Controls volume
+        function setVolume(val)
+        {
+          myAudio.volume = val / 100;
+        }
+
+        //Draw the background and sun right away.
+        drawBackground();
+        drawSun();
+        drawClouds(50,100);
+
+        //Runs updateProgress() when the timeupdate event happens.
+        myAudio.addEventListener("timeupdate", updateProgress, false);
 
 
-  		</script>
-    </div>
+		</script>
   </body>
 </html>
