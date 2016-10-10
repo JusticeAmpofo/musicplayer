@@ -18,6 +18,10 @@
 
         <canvas id="myCanvas" width="400" height="400"></canvas>
 
+        <div id="myProgress">
+          <span id="myBar"></span>
+        </div>
+
         <div id="buttonControls">
           <button id="myPreviousButton">Previous</button>
           <button id="myPlayButton">Play</button>
@@ -34,21 +38,25 @@
 
             <li>
               <input type="checkbox" id="shuffle" name="shuffle">
-              <label for="shuffle">shuffle</label>
+              <label for="shuffle">Shuffle</label>
+            </li>
+
+            <li>
+              <input id="vol-col" type="range" min="0" max="100" value="50"  oninput="setVolume(this.value)" onchange="setVolume(this.value)" />
+              <label for="vol-col">Volume</label>
             </li>
           </ul>
         </form>
 
-        <script>
+        <script> ////////////////////////////////
 
           //Get the canvas element
           var canvas = document.getElementById('myCanvas');
           var context = canvas.getContext('2d');
 
-          //draw background function
+          //draw earth background function
           function drawBackground()
           {
-            //sky
             var gradient = context.createLinearGradient(0, 0, 0, 500);
             gradient.addColorStop(0, 'green');
             gradient.addColorStop(1, 'brown');
@@ -60,7 +68,6 @@
           //draw fire background function
           function drawFireBackground()
           {
-            //fire sky
             var gradient = context.createLinearGradient(0, 0, 0, 500);
             gradient.addColorStop(0, 'red');
             gradient.addColorStop(1, 'black');
@@ -71,7 +78,6 @@
           //draw Water background function
           function drawWaterBackground()
           {
-            //Water sky
             var gradient = context.createLinearGradient(0, 0, 0, 500);
             gradient.addColorStop(0, 'blue');
             gradient.addColorStop(1, 'cyan');
@@ -82,7 +88,6 @@
           //draw Ice background function
           function drawIceBackground()
           {
-            //Ice sky
             var gradient = context.createLinearGradient(0, 0, 0, 500);
             gradient.addColorStop(0, 'cyan');
             gradient.addColorStop(1, 'blue');
@@ -93,7 +98,6 @@
           //draw Light background function
           function drawLightBackground()
           {
-            //Light sky
             var gradient = context.createLinearGradient(0, 0, 0, 500);
             gradient.addColorStop(0, 'lightyellow');
             gradient.addColorStop(1, 'yellow');
@@ -104,7 +108,6 @@
           //draw Boss background function
           function drawBossBackground()
           {
-            //Boss sky
             var gradient = context.createLinearGradient(0, 0, 0, 500);
             gradient.addColorStop(0, 'purple');
             gradient.addColorStop(1, 'black');
@@ -153,7 +156,7 @@
           //Switching Song function
           function changeSong()
           {
-            //The if statments are checking to see if the player is out of range
+            //The if statments are checking to see if the player is out of range.
             if(songs == 7)
             {
               songs = 1;
@@ -163,6 +166,7 @@
               songs = 6;
             }
 
+            //Determined what song to play next and what background to use.
             switch (songs)
             {
               case 1:
@@ -229,6 +233,18 @@
 
             }
           } //changeSong ends
+
+          //Update Progress Bar function
+          function updateProgress()
+          {
+             var progress = document.getElementById("myBar");
+             var value = 0;
+             if (myAudio.currentTime > 0)
+             {
+                value = Math.floor((100 / myAudio.duration) * myAudio.currentTime);
+             }
+             progress.style.width = value + "%";
+          }
 
   				playButton.onclick = function()
   				{
@@ -302,10 +318,20 @@
 
           };
 
-          //Draw the background and sun right away
+          //Controls volume
+          function setVolume(val)
+          {
+            myAudio.volume = val / 100;
+          }
+
+          //Draw the background and sun right away.
           drawBackground();
           drawSun();
           drawClouds(50,100);
+
+          //Runs updateProgress() when the timeupdate event happens.
+          myAudio.addEventListener("timeupdate", updateProgress, false);
+
 
   		</script>
     </div>

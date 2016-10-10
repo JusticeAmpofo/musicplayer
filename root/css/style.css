@@ -31,6 +31,21 @@ body
       margin-bottom: 20px;
     }
 
+    #myProgress
+    {
+      border:1px solid #aaa;
+      color:#fff;
+      width:400px;
+      height:20px;
+      margin: 0 auto 20px;
+    }
+      #myBar
+      {
+        background:red;
+        height:20px;
+        display:inline-block;
+      }
+
     #buttonControls
     {
       display:flex;
